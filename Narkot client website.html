@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NARKOT CLIENT - Премиум чит для Minecraft</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@800&family=Exo+2:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --neon-purple: #8A2BE2;
+            --dark-purple: #4B0082;
+            --deep-purple: #2E0854;
+            --light-purple: #9370DB;
+            --accent-purple: #DA70D6;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --text-color: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Exo 2', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(138, 43, 226, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(75, 0, 130, 0.05) 0%, transparent 20%);
+        }
+        
+        header {
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(138, 43, 226, 0.3);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-badge {
+            font-size: 3.5rem;
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(45deg, var(--neon-purple), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px rgba(138, 43, 226, 0.7);
+            position: relative;
+        }
+        
+        .logo-badge::after {
+            content: "N";
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: transparent;
+            text-shadow: 
+                0 0 5px var(--neon-purple),
+                0 0 15px var(--neon-purple),
+                0 0 30px var(--accent-purple);
+            z-index: -1;
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--light-purple), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: bold;
+            position: relative;
+            transition: color 0.3s;
+            font-size: 1.1rem;
+        }
+        
+        nav ul li a:hover {
+            color: var(--light-purple);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--light-purple);
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 10%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 70% 30%, rgba(138, 43, 226, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 30% 70%, rgba(75, 0, 130, 0.15) 0%, transparent 30%);
+            z-index: -1;
+        }
+        
+        .hero-content {
+            flex: 1;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--light-purple), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+            text-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            line-height: 1.6;
+            color: #d0d0d0;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 14px 35px;
+            background: linear-gradient(45deg, var(--dark-purple), var(--neon-purple));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+            position: relative;
+            overflow: hidden;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 25px rgba(138, 43, 226, 0.8);
+        }
+        
+        .btn:active {
+            transform: translateY(2px);
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--light-purple);
+            color: var(--light-purple);
+            box-shadow: 0 0 15px rgba(147, 112, 219, 0.3);
+            margin-left: 15px;
+        }
+        
+        .btn-secondary:hover {
+            box-shadow: 0 0 25px rgba(147, 112, 219, 0.6);
+        }
+        
+        .character {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .character img {
+            max-width: 100%;
+            height: auto;
+            filter: drop-shadow(0 0 30px rgba(138, 43, 226, 0.7));
+            transition: transform 0.3s;
+        }
+        
+        .character:hover img {
+            transform: scale(1.05);
+        }
+        
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .section {
+            padding: 100px 10%;
+            position: relative;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            text-align: center;
+            background: linear-gradient(to right, var(--light-purple), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--dark-purple), var(--neon-purple));
+            border-radius: 3px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: rgba(20, 10, 30, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s;
+            border: 1px solid rgba(138, 43, 226, 0.2);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--dark-purple), var(--neon-purple));
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(75, 0, 130, 0.3);
+            border-color: var(--neon-purple);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--accent-purple);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--light-purple);
+        }
+        
+        .pricing {
+            background: var(--darker-bg);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pricing::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(45deg, transparent 65%, rgba(138, 43, 226, 0.05) 65%),
+                linear-gradient(-45deg, transparent 65%, rgba(75, 0, 130, 0.05) 65%);
+            background-size: 20px 20px;
+            z-index: 0;
+        }
+        
+        .pricing-plans {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .pricing-card {
+            background: rgba(15, 5, 25, 0.9);
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            position: relative;
+        }
+        
+        .pricing-card.popular {
+            border: 2px solid var(--accent-purple);
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(218, 112, 214, 0.3);
+            background: rgba(25, 10, 40, 0.95);
+        }
+        
+        .pricing-card.popular::before {
+            content: 'ЛУЧШЕЕ ПРЕДЛОЖЕНИЕ';
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: linear-gradient(to right, var(--dark-purple), var(--neon-purple));
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .pricing-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--light-purple);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: var(--accent-purple);
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .price span {
+            font-size: 1rem;
+            color: var(--text-color);
+            font-family: 'Exo 2', sans-serif;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .pricing-features li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 25px;
+            text-align: left;
+        }
+        
+        .pricing-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-purple);
+            font-weight: bold;
+        }
+        
+        footer {
+            background: #050505;
+            padding: 50px 10%;
+            text-align: center;
+            border-top: 1px solid rgba(138, 43, 226, 0.3);
+            background: linear-gradient(to top, #0a0612, #050505);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(138, 43, 226, 0.1);
+            border-radius: 50%;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 1.3rem;
+            border: 1px solid rgba(147, 112, 219, 0.3);
+        }
+        
+        .social-links a:hover {
+            background: var(--neon-purple);
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.5);
+        }
+        
+        .promo-code {
+            background: rgba(20, 10, 30, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 40px auto;
+            max-width: 600px;
+            border: 1px solid var(--neon-purple);
+            text-align: center;
+        }
+        
+        .promo-code h3 {
+            color: var(--light-purple);
+            margin-bottom: 15px;
+        }
+        
+        .code {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: var(--neon-purple);
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(138, 43, 226, 0.7);
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 100px;
+            }
+            
+            .hero-content {
+                margin-bottom: 50px;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .btn {
+                display: block;
+                margin: 15px auto;
+                width: 80%;
+                max-width: 300px;
+            }
+            
+            .btn-secondary {
+                margin-left: auto;
+            }
+            
+            .logo-text {
+                font-size: 1.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        /* Анимации */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 5px var(--neon-purple);
+            }
+            100% {
+                box-shadow: 0 0 20px var(--accent-purple);
+            }
+        }
+        
+        .glowing {
+            animation: glow 2s alternate infinite;
+        }
+
+        /* New: Big N on the right */
+        .big-n {
+            font-size: 15rem;
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(45deg, var(--neon-purple), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 30px rgba(138, 43, 226, 0.7);
+            opacity: 0.7;
+            animation: float 6s ease-in-out infinite, glow 2s alternate infinite;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <div class="logo-badge">N</div>
+            <div class="logo-text">NARKOT CLIENT</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#features">Функции</a></li>
+                <li><a href="#pricing">Цены</a></li>
+                <li><a href="#download">Скачать</a></li>
+                <li><a href="#support">Поддержка</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="hero">
+        <div class="particles" id="particles-js"></div>
+        <div class="hero-content">
+            <h1>NARKOT CLIENT — твой лучший чит для Minecraft</h1>
+            <p>Максимальный функционал, полная анонимность, молниеносная скорость. Обходи под любые античиты доминируй на серверах!</p>
+            <div>
+                <a href="#pricing" class="btn glowing">Купить клиент</a>
+                <a href="#features" class="btn btn-secondary">Узнать больше</a>
+            </div>
+        </div>
+        <div class="character">
+            <div class="big-n floating">N</div>
+        </div>
+    </section>
+    
+    <section class="section" id="features">
+        <h2 class="section-title">Наши функции</h2>
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">👁️</div>
+                <h3>X-Ray</h3>
+                <p>Видите все руды и ценные блоки сквозь стены. Лучший X-Ray на рынке с настраиваемыми фильтрами.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>KillAura</h3>
+                <p>Автоматическая атака всех врагов вокруг вас. Настройте радиус, скорость и приоритет целей.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👻</div>
+                <h3>NoFall</h3>
+                <p>Никакого урона от падения. Летите с любой высоты без последствий.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3>ESP</h3>
+                <p>Видите игроков, мобов и предметы через стены с подсветкой разных цветов.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3>SpeedHack</h3>
+                <p>Передвигайтесь в разы быстрее других игроков. Настройте скорость под себя.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>AntiAntiCheat</h3>
+                <p>Наш клиент обходит все популярные античиты, включая AAC, Spartan, Matrix и другие.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section pricing" id="pricing">
+        <h2 class="section-title">Тарифные планы</h2>
+        <div class="pricing-plans">
+            <div class="pricing-card">
+                <h3>1 месяц</h3>
+                <div class="price">299 <span>руб</span></div>
+                <ul class="pricing-features">
+                    <li>Полный доступ ко всем функциям</li>
+                    <li>Поддержка 24/7</li>
+                    <li>Автоматические обновления</li>
+                    <li>Доступ к приватному Discord</li>
+                </ul>
+                <a href="https://funpay.com/lots/offer?id=43706612" class="btn" target="_blank">Купить</a>
+            </div>
+            <div class="pricing-card">
+                <h3>1 год</h3>
+                <div class="price">499 <span>руб</span></div>
+                <ul class="pricing-features">
+                    <li>Полный доступ ко всем функциям</li>
+                    <li>Поддержка 24/7</li>
+                    <li>Автоматические обновления</li>
+                    <li>Доступ к приватному Discord</li>
+                    <li>Эксклюзивные скины</li>
+                    <li>Приоритет в очереди поддержки</li>
+                </ul>
+                <a href="https://funpay.com/lots/offer?id=43706708" class="btn" target="_blank">Купить</a>
+            </div>
+            <div class="pricing-card popular">
+                <h3>Навсегда</h3>
+                <div class="price">599 <span>руб</span></div>
+                <ul class="pricing-features">
+                    <li>Пожизненный доступ ко всем функциям</li>
+                    <li>Поддержка 24/7</li>
+                    <li>Автоматические обновления</li>
+                    <li>Доступ к приватному Discord</li>
+                    <li>Эксклюзивные скины</li>
+                    <li>Приоритет в очереди поддержки</li>
+                    <li>Доступ к бета-функциям</li>
+                    <li>Персональный менеджер</li>
+                </ul>
+                <a href="https://funpay.com/lots/offer?id=43706771" class="btn" target="_blank">Купить</a>
+            </div>
+        </div>
+        
+        <div class="promo-code">
+            <h3>Используй промокод для скидки 5%</h3>
+            <div class="code">NARKOT5</div>
+        </div>
+    </section>
+    
+    <section class="section" id="download">
+        <h2 class="section-title">Скачать NARKOT CLIENT</h2>
+        <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+            <p style="margin-bottom: 30px; font-size: 1.1rem;">После покупки подписки вы получите доступ к загрузке клиента и подробным инструкциям по установке.</p>
+            <a href="#pricing" class="btn glowing" style="margin-bottom: 40px; display: inline-block;">Купить подписку</a>
+            <div style="background: rgba(20, 10, 30, 0.7); border-radius: 15px; padding: 30px; border: 1px solid rgba(138, 43, 226, 0.3); position: relative; overflow: hidden;">
+                <div style="position: absolute; top: 0; left: 0; width: 5px; height: 100%; background: linear-gradient(to bottom, var(--dark-purple), var(--neon-purple));"></div>
+                <h3 style="color: var(--light-purple); margin-bottom: 20px; text-align: left;">Инструкция по установке</h3>
+                <ol style="text-align: left; padding-left: 20px; line-height: 2; font-size: 1.1rem;">
+                    <li>Скачайте клиент после покупки</li>
+                    <li>Запустите лаунчер</li>
+                    <li>Следуйте инструкциям на экране</li>
+                    <li>Запустите Minecraft с нашим клиентом</li>
+                    <li>Нажмите правый SHIFT для открытия меню</li>
+                    <li>Настройте читы под свой стиль игры и наслаждайтесь</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="support">
+        <h2 class="section-title">Поддержка</h2>
+        <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+            <p style="margin-bottom: 30px; font-size: 1.1rem;">У вас есть вопросы или проблемы? Наша поддержка доступна 24/7!</p>
+            <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                <a href="https://t.me/Ivan1oschek" class="btn" style="background: linear-gradient(45deg, #0088cc, #00aced);">
+                    <i class="fab fa-telegram"></i> Telegram
+                </a>
+                <a href="https://discord.gg/MReJ9mmj" class="btn" style="background: linear-gradient(45deg, #5865F2, #7289DA);">
+                    <i class="fab fa-discord"></i> Discord
+                </a>
+                <a href="https://www.youtube.com/@603id" class="btn" style="background: linear-gradient(45deg, #FF0000, #FF3333);">
+                    <i class="fab fa-youtube"></i> YouTube
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="social-links">
+            <a href="https://t.me/Ivan1oschek"><i class="fab fa-telegram"></i></a>
+            <a href="https://discord.gg/MReJ9mmj"><i class="fab fa-discord"></i></a>
+            <a href="https://www.youtube.com/@603id"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p style="margin-top: 30px;">© 2025 NARKOT CLIENT. Все права защищены.</p>
+        <p style="margin-top: 20px; font-size: 0.9rem; color: #aaa;">
+            <a href="#" style="color: #aaa; text-decoration: none; margin: 0 15px;">Политика конфиденциальности</a>
+            <a href="#" style="color: #aaa; text-decoration: none; margin: 0 15px;">Условия использования</a>
+            <a href="#" style="color: #aaa; text-decoration: none; margin: 0 15px;">Отказ от ответственности</a>
+        </p>
+    </footer>
+    
+    <script>
+        // Плавная прокрутка
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Анимация при скролле
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.feature-card, .pricing-card');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', animateOnScroll);
+        
+        // Инициализация
+        document.querySelectorAll('.feature-card, .pricing-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.5s ease';
+        });
+        
+        animateOnScroll();
+    </script>
+</body>
+</html>
